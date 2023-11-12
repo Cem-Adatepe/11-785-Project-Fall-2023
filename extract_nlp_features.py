@@ -1,6 +1,6 @@
 from utils.bert_utils import get_bert_layer_representations
 from utils.xl_utils import get_xl_layer_representations
-from utils.elmo_utils import get_elmo_layer_representations
+# from utils.elmo_utils import get_elmo_layer_representations
 from utils.use_utils import get_use_layer_representations
 
 import time as tm
@@ -40,9 +40,9 @@ if __name__ == '__main__':
     elif args.nlp_model == 'transformer_xl':
         word_ind_to_extract = -1
         nlp_features = get_xl_layer_representations(args.sequence_length, text_array, remove_chars, word_ind_to_extract)
-    elif args.nlp_model == 'elmo':
-        word_ind_to_extract = -1
-        nlp_features = get_elmo_layer_representations(args.sequence_length, text_array, remove_chars, word_ind_to_extract)
+    # elif args.nlp_model == 'elmo':
+    #     word_ind_to_extract = -1
+    #     nlp_features = get_elmo_layer_representations(args.sequence_length, text_array, remove_chars, word_ind_to_extract)
     elif args.nlp_model == 'use':
         nlp_features = get_use_layer_representations(args.sequence_length, text_array, remove_chars)
     else:

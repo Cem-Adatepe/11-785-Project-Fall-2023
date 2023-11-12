@@ -1,5 +1,6 @@
 import tensorflow as tf
-import tensorflow_hub as hub
+#import tensorflow_hub as hub
+from sentence_transformers import SentenceTransformer
 import numpy as np
 
 
@@ -16,7 +17,8 @@ def get_use_layer_representations(seq_len, text_array, remove_chars):
     module_url = "https://tfhub.dev/google/universal-sentence-encoder/2" #@param ["https://tfhub.dev/google/universal-sentence-encoder/2", "https://tfhub.dev/google/universal-sentence-encoder-large/3"]
 
     # Import the Universal Sentence Encoder's TF Hub module
-    embed = hub.Module(module_url)
+    model = SentenceTransformer('sentence-transformers/use-cmlm-multilingual')
+    # embed = hub.Module(module_url)
     
     # Reduce logging output.
     tf.logging.set_verbosity(tf.logging.ERROR)
@@ -29,7 +31,8 @@ def get_use_layer_representations(seq_len, text_array, remove_chars):
     with tf.Session() as session:
         session.run([tf.global_variables_initializer(), tf.tables_initializer()])
 
-        embeddings = session.run(embed(seq_strings))
+        # embeddings = session.run(embed(seq_strings))
+        embeddings = model.encode(seq_strings)
         sequence = np.array(embeddings)
 
     USE = {}

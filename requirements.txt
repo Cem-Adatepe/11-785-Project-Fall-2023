@@ -1,0 +1,5 @@
+torch==2.1.0
+numpy==1.26.1
+pytorch-pretrained-bert==0.6.2
+sentence-transformers==2.2.2
+nibabel==5.1.0

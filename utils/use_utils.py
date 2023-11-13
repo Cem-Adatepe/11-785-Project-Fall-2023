@@ -1,4 +1,4 @@
-import tensorflow as tf
+#import tensorflow as tf
 #import tensorflow_hub as hub
 from sentence_transformers import SentenceTransformer
 import numpy as np

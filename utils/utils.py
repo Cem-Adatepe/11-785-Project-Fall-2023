@@ -49,10 +49,11 @@ def delay_mat(mat, delays):
 def get_nlp_features_fixed_length(layer, seq_len, feat_type, feat_dir, train_indicator, SKIP_WORDS=20, END_WORDS=5176):
     
     loaded = np.load(feat_dir + feat_type + '_length_'+str(seq_len)+ '_layer_' + str(layer) + '.npy')
+    print(loaded.shape)
     if feat_type == 'elmo':
         train = loaded[SKIP_WORDS:END_WORDS,:][:,:512][train_indicator]   # only forward LSTM
         test = loaded[SKIP_WORDS:END_WORDS,:][:,:512][~train_indicator]   # only forward LSTM
-    elif feat_type == 'bert' or feat_type == 'transformer_xl' or feat_type == 'use':
+    elif feat_type == 'bert' or feat_type == 'transformer_xl' or feat_type == 'use' or feat_type == 'gpt': #may be completely wrong
         train = loaded[SKIP_WORDS:END_WORDS,:][train_indicator]
         test = loaded[SKIP_WORDS:END_WORDS,:][~train_indicator]
     else:

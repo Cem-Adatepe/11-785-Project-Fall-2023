@@ -2,7 +2,7 @@ from utils.bert_utils import get_bert_layer_representations
 from utils.xl_utils import get_xl_layer_representations
 # from utils.elmo_utils import get_elmo_layer_representations
 from utils.use_utils import get_use_layer_representations
-
+from utils.gpt_utils import get_gpt_layer_representations
 import time as tm
 import numpy as np
 import torch
@@ -17,7 +17,7 @@ def save_layer_representations(model_layer_dict, model_name, seq_len, save_dir):
     return 1
 
                 
-model_options = ['bert','transformer_xl','elmo','use']        
+model_options = ['bert','transformer_xl','elmo','use', 'gpt']        
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -30,7 +30,6 @@ if __name__ == '__main__':
     
     text_array = np.load(os.getcwd() + '/data/stimuli_words.npy')
     remove_chars = [",","\"","@"]
-    
     
     if args.nlp_model == 'bert':
         # the index of the word for which to extract the representations (in the input "[CLS] word_1 ... word_n [SEP]")
@@ -45,6 +44,8 @@ if __name__ == '__main__':
     #     nlp_features = get_elmo_layer_representations(args.sequence_length, text_array, remove_chars, word_ind_to_extract)
     elif args.nlp_model == 'use':
         nlp_features = get_use_layer_representations(args.sequence_length, text_array, remove_chars)
+    elif args.nlp_model == 'gpt':
+        nlp_features = get_gpt_layer_representations(args.sequence_length, text_array, remove_chars)
     else:
         print('Unrecognized model name {}'.format(args.nlp_model))
         

@@ -24,9 +24,6 @@ def get_gpt_layer_representations(seq_len, text_array, remove_chars):
             token = (tokenizer(words[j], return_tensors="pt")['input_ids']).tolist()
             tokens.extend(token[0])
 
-        # print(np.array(tokens))
-        # print("FUCK")
-        # print(tokenizer.convert_tokens_to_ids((tokens)))
 
         inputs = torch.tensor([tokens])
 

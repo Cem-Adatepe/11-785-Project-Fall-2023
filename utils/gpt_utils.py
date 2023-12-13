@@ -3,7 +3,7 @@ import numpy as np
 from transformers import GPT2Tokenizer, GPT2Model
 import time as tm
 
-def get_gpt_layer_representations(seq_len, text_array, remove_chars):
+def get_gpt_layer_representations(seq_len, text_array, remove_chars, uniform_layer):
     model = GPT2Model.from_pretrained("gpt2")
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
     model.eval()

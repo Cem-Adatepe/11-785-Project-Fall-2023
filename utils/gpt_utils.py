@@ -6,6 +6,10 @@ import time as tm
 def get_gpt_layer_representations(seq_len, text_array, remove_chars, uniform_layer):
     model = GPT2Model.from_pretrained("gpt2")
     tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+
+    if uniform_layer:
+        model.base_model.h[uniform_layer].attn.c_attn.weight = torch.nn.Parameter(torch.cat((torch.zeros(768, 768), torch.zeros(768, 768), torch.eye(768)), 1))
+
     model.eval()
     GPT = {}
     for i in range(-1, 12):

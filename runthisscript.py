@@ -7,25 +7,27 @@ import os
 import utils.utils as utils
 
 subject = ['F','H','I','J','K','L','M','N']
-seq_lengths = [1, 5, 10, 15, 20, 25, 30]
+#seq_lengths = [1, 5, 10, 15, 20, 25, 30]
+sl = 10
 text_array = np.load(os.getcwd() + '/data/stimuli_words.npy')
 remove_chars = [",", "\"", "@"]
-model_name = 'gpt'
-layer = 7
-predicted_brain_dir = 'new_predicted_brain/'
-eval_predict_dir = 'new_eval_brain_predicts/'
+model_name = 'llama'
+layers = [1,4,7,10,13,16,19,22,25,28,31]
+uniform_layer = None
+predicted_brain_dir = 'predictions/'
+eval_predict_dir = 'evaluations/'
 results = {}
 
-for sl in seq_lengths:
-    nlp_features = extract_nlp_features.get_gpt_layer_representations(sl, text_array, remove_chars)
-    extract_nlp_features.save_layer_representations(nlp_features, model_name, sl, 'new_nlp_features/')
+#for sl in seq_lengths:
+nlp_features = extract_nlp_features.get_llama_layer_representations(sl, text_array, remove_chars, uniform_layer)
+extract_nlp_features.save_layer_representations(nlp_features, model_name, sl, 'nlp_features/')
 
 for subject in subject:
-    for sl in seq_lengths:
+    for layer in layers:
 
         #below copy pasted from predict_brain
         predict_feat_dict = {'nlp_feat_type': model_name,
-                             'nlp_feat_dir': 'new_nlp_features/',
+                             'nlp_feat_dir': 'nlp_features/',
                              'layer': layer,
                              'seq_len': sl}
         data = np.load('./data/fMRI/data_subject_{}.npy'.format(subject))

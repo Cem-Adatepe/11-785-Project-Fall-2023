@@ -25,6 +25,7 @@ if __name__ == '__main__':
     parser.add_argument("--nlp_model", default='bert', choices=model_options)                
     parser.add_argument("--sequence_length", type=int, default=1, help='length of context to provide to NLP model (default: 1)')
     parser.add_argument("--output_dir", required=True, help='directory to save extracted representations to')
+    parser.add_argument("--uniform_layer", type=int, default=None, help="layer to make uniform (default: None)")
 
     args = parser.parse_args()
     print(args)
@@ -46,9 +47,9 @@ if __name__ == '__main__':
     elif args.nlp_model == 'use':
         nlp_features = get_use_layer_representations(args.sequence_length, text_array, remove_chars)
     elif args.nlp_model == 'gpt':
-        nlp_features = get_gpt_layer_representations(args.sequence_length, text_array, remove_chars)
+        nlp_features = get_gpt_layer_representations(args.sequence_length, text_array, remove_chars, args.uniform_layer)
     elif args.nlp_model == 'llama':
-        nlp_features = get_llama_layer_representations(args.sequence_length, text_array, remove_chars)
+        nlp_features = get_llama_layer_representations(args.sequence_length, text_array, remove_chars, args.uniform_layer)
     else:
         print('Unrecognized model name {}'.format(args.nlp_model))
         
